@@ -167,6 +167,8 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
 var _navigation = __webpack_require__(/*! ../navigation/navigation.component */ "./client/js/components/navigation/navigation.component.js");
 
 var _navigation2 = _interopRequireDefault(_navigation);
@@ -213,8 +215,8 @@ var HeaderComponent = function (_Component) {
                             _react2.default.createElement('span', { className: 'icon-bar' })
                         ),
                         _react2.default.createElement(
-                            'a',
-                            { className: 'navbar-brand', href: '#' },
+                            _reactRouterDom.Link,
+                            { className: 'navbar-brand', to: '/' },
                             'React JS | Bootstrap'
                         )
                     ),
@@ -266,28 +268,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var HomeComponent = function (_Component) {
     _inherits(HomeComponent, _Component);
 
-    function HomeComponent(props) {
+    function HomeComponent() {
         _classCallCheck(this, HomeComponent);
 
-        var _this = _possibleConstructorReturn(this, (HomeComponent.__proto__ || Object.getPrototypeOf(HomeComponent)).call(this, props));
-
-        _this.state = {
-            posts: []
-        };
-        return _this;
+        return _possibleConstructorReturn(this, (HomeComponent.__proto__ || Object.getPrototypeOf(HomeComponent)).apply(this, arguments));
     }
 
     _createClass(HomeComponent, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var _this2 = this;
-
-            _axios2.default.get('https://jsonplaceholder.typicode.com/comments?postId=1').then(function (response) {
-                var posts = response.data;
-                _this2.setState({ posts: posts });
-            });
-        }
-    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -444,7 +431,7 @@ var MainComponent = function (_Component) {
                     null,
                     _react2.default.createElement(_header2.default, null),
                     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _home2.default }),
-                    _react2.default.createElement(_reactRouterDom.Route, { path: '/about-us', component: _posts2.default }),
+                    _react2.default.createElement(_reactRouterDom.Route, { path: '/posts', component: _posts2.default }),
                     _react2.default.createElement(_footer2.default, null)
                 )
             );
@@ -519,7 +506,7 @@ var NavigationComponent = function (_Component) {
                         'li',
                         null,
                         _react2.default.createElement(
-                            _reactRouterDom.Link,
+                            _reactRouterDom.NavLink,
                             { to: '/posts' },
                             'Posts'
                         )
@@ -556,6 +543,10 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -567,20 +558,52 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var PostsComponent = function (_Component) {
     _inherits(PostsComponent, _Component);
 
-    function PostsComponent() {
+    function PostsComponent(props) {
         _classCallCheck(this, PostsComponent);
 
-        return _possibleConstructorReturn(this, (PostsComponent.__proto__ || Object.getPrototypeOf(PostsComponent)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (PostsComponent.__proto__ || Object.getPrototypeOf(PostsComponent)).call(this, props));
+
+        _this.state = {
+            posts: []
+        };
+        return _this;
     }
 
     _createClass(PostsComponent, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            _axios2.default.get('https://jsonplaceholder.typicode.com/comments?postId=1').then(function (response) {
+                var posts = response.data;
+                _this2.setState({ posts: posts });
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
-            return _react2.default.createElement(
+            var postMarkup = _react2.default.createElement(
                 'div',
-                null,
-                'posts'
+                { className: 'container' },
+                _react2.default.createElement(
+                    'h2',
+                    null,
+                    'Posts'
+                ),
+                _react2.default.createElement(
+                    'ul',
+                    null,
+                    this.state.posts.map(function (post) {
+                        return _react2.default.createElement(
+                            'li',
+                            { key: post.id },
+                            post.name
+                        );
+                    })
+                )
             );
+
+            return postMarkup;
         }
     }]);
 

@@ -3,22 +3,6 @@ import axios from 'axios';
 
 class HomeComponent extends Component {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            posts: []
-          }
-    }
-
-    componentDidMount() {
-        axios.get(`https://jsonplaceholder.typicode.com/comments?postId=1`)
-          .then(response => {
-            const posts = response.data;
-            this.setState({ posts });
-          })
-      }
-
     render() {
         return (
             <div className="container">

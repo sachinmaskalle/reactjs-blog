@@ -15,7 +15,7 @@ class MainComponent extends Component {
                     <HeaderComponent />
 
                     <Route exact path='/' component={HomeComponent} />
-                    <Route path='/about-us' component={PostsComponent} />
+                    <Route path='/posts' component={PostsComponent} />
 
                     <FooterComponent />
                 </div>

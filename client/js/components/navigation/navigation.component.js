@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link , NavLink} from 'react-router-dom';
 
 class NavigationComponent extends Component {
     render() {
@@ -7,7 +7,7 @@ class NavigationComponent extends Component {
             <div id="navbar" className="collapse navbar-collapse">
                 <ul className="nav navbar-nav">
                     <li><Link to='/'>Home</Link></li>
-                    <li><Link to='/posts'>Posts</Link></li>
+                    <li><NavLink to='/posts'>Posts</NavLink></li>
                 </ul>
           </div>
         );

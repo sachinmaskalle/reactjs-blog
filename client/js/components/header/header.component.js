@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import NavigationComponent from '../navigation/navigation.component';
 
 class HeaderComponent extends Component {
@@ -13,7 +14,8 @@ class HeaderComponent extends Component {
                         <span className="icon-bar"></span>
                         <span className="icon-bar"></span>
                     </button>
-                    <a className="navbar-brand" href="#">React JS | Bootstrap</a>
+                    
+                    <Link className="navbar-brand" to="/">React JS | Bootstrap</Link>
                     </div>
 
                     <NavigationComponent />
