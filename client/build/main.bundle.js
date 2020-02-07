@@ -403,6 +403,10 @@ var _posts = __webpack_require__(/*! ../posts/posts.component */ "./client/js/co
 
 var _posts2 = _interopRequireDefault(_posts);
 
+var _postdetails = __webpack_require__(/*! ../postdetails/postdetails.component */ "./client/js/components/postdetails/postdetails.component.js");
+
+var _postdetails2 = _interopRequireDefault(_postdetails);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -432,6 +436,7 @@ var MainComponent = function (_Component) {
                     _react2.default.createElement(_header2.default, null),
                     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _home2.default }),
                     _react2.default.createElement(_reactRouterDom.Route, { path: '/posts', component: _posts2.default }),
+                    _react2.default.createElement(_reactRouterDom.Route, { path: '/posts/:postId', component: _postdetails2.default }),
                     _react2.default.createElement(_footer2.default, null)
                 )
             );
@@ -497,8 +502,8 @@ var NavigationComponent = function (_Component) {
                         'li',
                         null,
                         _react2.default.createElement(
-                            _reactRouterDom.Link,
-                            { to: '/' },
+                            _reactRouterDom.NavLink,
+                            { exact: true, to: '/' },
                             'Home'
                         )
                     ),
@@ -523,10 +528,10 @@ exports.default = NavigationComponent;
 
 /***/ }),
 
-/***/ "./client/js/components/posts/posts.component.js":
-/*!*******************************************************!*\
-  !*** ./client/js/components/posts/posts.component.js ***!
-  \*******************************************************/
+/***/ "./client/js/components/postdetails/postdetails.component.js":
+/*!*******************************************************************!*\
+  !*** ./client/js/components/postdetails/postdetails.component.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -555,6 +560,113 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var PostDetailsComponent = function (_Component) {
+    _inherits(PostDetailsComponent, _Component);
+
+    function PostDetailsComponent(props) {
+        _classCallCheck(this, PostDetailsComponent);
+
+        var _this = _possibleConstructorReturn(this, (PostDetailsComponent.__proto__ || Object.getPrototypeOf(PostDetailsComponent)).call(this, props));
+
+        _this.state = {
+            post: null
+        };
+        return _this;
+    }
+
+    _createClass(PostDetailsComponent, [{
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate() {
+            var _this2 = this;
+
+            //console.log(this.props);
+            var id = this.props.match.params.postId;
+            console.log('Id is ' + id);
+            _axios2.default.get('https://jsonplaceholder.typicode.com/posts/' + id).then(function (res) {
+                if (_this2.state.post != _this2.state.post) {
+                    _this2.setState({
+                        post: res.data
+                    });
+                }
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+
+            var post = this.state.post ? _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    this.state.post.id
+                ),
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    this.state.post.title
+                ),
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    this.state.post.body
+                )
+            ) : _react2.default.createElement(
+                'div',
+                { className: 'text-primary' },
+                'Loading Individual post..'
+            );
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'container' },
+                post
+            );
+        }
+    }]);
+
+    return PostDetailsComponent;
+}(_react.Component);
+
+exports.default = PostDetailsComponent;
+
+/***/ }),
+
+/***/ "./client/js/components/posts/posts.component.js":
+/*!*******************************************************!*\
+  !*** ./client/js/components/posts/posts.component.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var PostsComponent = function (_Component) {
     _inherits(PostsComponent, _Component);
 
@@ -574,14 +686,36 @@ var PostsComponent = function (_Component) {
         value: function componentDidMount() {
             var _this2 = this;
 
-            _axios2.default.get('https://jsonplaceholder.typicode.com/comments?postId=1').then(function (response) {
-                var posts = response.data;
-                _this2.setState({ posts: posts });
+            _axios2.default.get('https://jsonplaceholder.typicode.com/posts').then(function (response) {
+                _this2.setState({
+                    posts: response.data.slice(0, 10)
+                });
             });
         }
     }, {
         key: 'render',
         value: function render() {
+            // destruct the posts data
+            var posts = this.state.posts;
+
+            // check if posts exists
+
+            var postList = posts.length ? posts.map(function (post) {
+                return _react2.default.createElement(
+                    'li',
+                    { className: 'list-group-item', key: post.id },
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { to: '/posts/' + post.id },
+                        post.title
+                    )
+                );
+            }) : _react2.default.createElement(
+                'div',
+                { className: '' },
+                'Loading posts please wait ...'
+            );
+
             var postMarkup = _react2.default.createElement(
                 'div',
                 { className: 'container' },
@@ -592,14 +726,8 @@ var PostsComponent = function (_Component) {
                 ),
                 _react2.default.createElement(
                     'ul',
-                    null,
-                    this.state.posts.map(function (post) {
-                        return _react2.default.createElement(
-                            'li',
-                            { key: post.id },
-                            post.name
-                        );
-                    })
+                    { className: 'list-group' },
+                    postList
                 )
             );
 

@@ -6,6 +6,7 @@ import FooterComponent from '../footer/footer.component';
 
 import HomeComponent from '../home/home.component';
 import PostsComponent from '../posts/posts.component';
+import PostDetailsComponent from '../postdetails/postdetails.component';
 
 class MainComponent extends Component {
     render() {
@@ -15,8 +16,8 @@ class MainComponent extends Component {
                     <HeaderComponent />
 
                     <Route exact path='/' component={HomeComponent} />
-                    <Route path='/posts' component={PostsComponent} />
-
+                    <Route path='/posts' component={PostsComponent} /> 
+                    <Route path='/posts/:postId' component={PostDetailsComponent} /> 
                     <FooterComponent />
                 </div>
             </Router>

@@ -6,7 +6,7 @@ class NavigationComponent extends Component {
         return (
             <div id="navbar" className="collapse navbar-collapse">
                 <ul className="nav navbar-nav">
-                    <li><Link to='/'>Home</Link></li>
+                    <li><NavLink exact to='/'>Home</NavLink></li>
                     <li><NavLink to='/posts'>Posts</NavLink></li>
                 </ul>
           </div>
